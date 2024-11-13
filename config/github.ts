@@ -1,14 +1,15 @@
-import { type ConfigType, PACKAGENAME, isDev } from '@moneko/core';
+import { type ConfigType, isDev, PACKAGENAME } from '@moneko/core';
 
 const conf: Partial<ConfigType> = {
   devtool: isDev ? 'eval-cheap-module-source-map' : false,
   bar: false,
   seo: {
-    domain: '这里修改成你部署文档的域名',
+    domain: 'monako97.github.io',
     jekyll: false,
   },
-  basename: `/${PACKAGENAME}/`,
-  publicPath: `/${PACKAGENAME}/`,
+  basename: `/${PACKAGENAME}`,
+  sourceMap: false,
+  publicPath: `https://monako97.github.io/${PACKAGENAME}/`,
   bundleAnalyzer: false,
   fixBrowserRouter: {
     pathSegmentsToKeep: 1,
