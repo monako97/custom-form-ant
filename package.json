@@ -6,6 +6,7 @@
     "scripts": {
         "start": "mo start library react",
         "build": "mo build library react",
+        "lint": "npm run eslint && npm run stylelint",
         "stylelint": "mo stylelint components && mo stylelint site",
         "eslint": "mo eslint {components,site}",
         "changelog": "mo changelog CHANGELOG.md && git add CHANGELOG.md",
