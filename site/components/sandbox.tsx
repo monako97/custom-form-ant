@@ -132,7 +132,7 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
       <fieldset className="sandbox-container">
         <legend className="sandbox-title">{legend}</legend>
         <section className="sandbox-view">
-          <n-code-live ref={live} jsx={current.jsx} />
+          <n-code-live ref={live} jsx={current.jsx} shadow={false} />
           {langs.length > 1 ? (
             <n-segmented ref={langsRef} class="lang-btn" value={current.lang} />
           ) : null}
