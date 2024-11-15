@@ -15,7 +15,7 @@ const conf: Partial<ConfigType> = {
   },
   moduleFederation: [
     {
-      name: 'demo_micro_app_react',
+      name: 'custom_form_ant',
       // 接入 moduleFederation
       remotes: [
         {

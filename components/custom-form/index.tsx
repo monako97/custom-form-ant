@@ -333,7 +333,7 @@ const CustomForm = (
       removeText,
       onRemove,
       addProps,
-      addText = '添加项目',
+      addText = '添加项目s',
       onAdd,
       rules,
       ...rest

@@ -3,12 +3,6 @@ import type { ConfigType } from '@moneko/core';
 const conf: Partial<ConfigType> = {
   htmlPluginOption: {
     favicon: './site/assets/images/favicon.ico',
-    meta: {
-      CSP: {
-        'http-equiv': 'Content-Security-Policy',
-        content: "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
-      },
-    },
     tags: [
       {
         tag: 'script',
@@ -23,6 +17,10 @@ const conf: Partial<ConfigType> = {
     },
     '@ant-design/icons': {
       transform: 'es/icons/${member}',
+    },
+    'neko-ui': {
+      transform: 'es/${member}',
+      memberTransformers: ['dashed_case'],
     },
     antd: {
       transform: 'es/${member}',

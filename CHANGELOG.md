@@ -4,6 +4,7 @@
 
 ### 📦 Code Refactoring
 
+- 构建工具更新 ([244a9f7](/commit/244a9f73b971ddb390073ef7a4acef202e4cd6ab))
 - 构建工具更新 ([0de9ed0](/commit/0de9ed06153b033c767d3e738f29df6f6893b8e7))
 
 ### ✨ Features
