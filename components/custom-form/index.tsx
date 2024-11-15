@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef, type HtmlHTMLAttributes, useCallback } from 'react';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   AutoComplete,
@@ -42,6 +42,7 @@ import {
   type UploadProps,
 } from 'antd';
 import type { MonthPickerProps, RangePickerProps, WeekPickerProps } from 'antd/es/date-picker';
+import type { FormListProps } from 'antd/es/form';
 import type { PasswordProps, SearchProps, TextAreaProps } from 'antd/es/input';
 import type { ValidatorRule } from 'rc-field-form/lib/interface';
 
@@ -49,6 +50,20 @@ import Email, { type EmailProps } from '../email';
 
 import './index.global.less';
 
+/** Api */
+export interface CustomFormProps extends FormProps {
+  /** 表单字段配置 */
+  config: CustomFormConfig;
+  /** 表单实例 */
+  form?: FormInstance;
+  /** 是否加载中 */
+  loading?: boolean;
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 提交按钮配置 */
+  submitter?: false | Submitter;
+}
+/** 字段类型 */
 type CustomFormFieldType =
   | 'autoComplete'
   | 'string'
@@ -76,97 +91,135 @@ type CustomFormFieldType =
   | 'list'
   | 'custom';
 
-type FieldProps<
-  T extends CustomFormFieldType,
-  C extends Record<string, unknown>,
-> = T extends 'password'
-  ? PasswordProps
-  : T extends 'email'
-    ? EmailProps
-    : T extends 'select'
-      ? SelectProps
-      : T extends 'number'
-        ? InputNumberProps
-        : T extends 'boolean'
-          ? SwitchProps
-          : T extends 'radio'
-            ? RadioProps
-            : T extends 'checkbox'
-              ? CheckboxProps
-              : T extends 'date'
-                ? DatePickerProps
-                : T extends 'time'
-                  ? TimePickerProps
-                  : T extends 'week'
-                    ? WeekPickerProps
-                    : T extends 'month'
-                      ? MonthPickerProps
-                      : T extends 'year'
-                        ? MonthPickerProps
-                        : T extends 'quarter'
-                          ? MonthPickerProps
-                          : T extends 'range'
-                            ? RangePickerProps
-                            : T extends 'color'
-                              ? ColorPickerProps
-                              : T extends 'textarea'
-                                ? TextAreaProps
-                                : T extends 'upload'
-                                  ? UploadProps
-                                  : T extends 'slider'
-                                    ? SliderSingleProps
-                                    : T extends 'segmented'
-                                      ? SegmentedProps
-                                      : T extends 'search'
-                                        ? SearchProps
-                                        : T extends 'autoComplete'
-                                          ? AutoCompleteProps
-                                          : T extends 'cascader'
-                                            ? CascaderProps
-                                            : T extends 'custom'
-                                              ? C
-                                              : InputProps;
+/** List配置 */
 interface ListConfig extends CustomFormConfig {
+  /** 字段配置 */
   [field: string]: CustomFormFieldConfig<CustomFormFieldType, Record<string, unknown>>;
 }
+
+/** 字段配置 */
 interface CustomFormFieldConfig<T extends CustomFormFieldType, C extends Record<string, unknown>>
   extends FormItemProps {
+  /** 类型
+   * @default 'string'
+   */
   type?: T;
+  /** 自定义时使用的组件 */
   component?: T extends 'custom' ? React.ComponentType : never;
+  /** 组件的props */
   props?: FieldProps<T, C>;
+  /** 列的props */
   colProps?: Omit<ColProps, 'children'>;
+  /** 类型为list时, 配置list中各项属性 */
   config?: T extends 'list' ? ListConfig : never;
+  /** 类型为list时, 配置list中各项的最大数量 */
   maxLength?: T extends 'list' ? number : never;
+  /** 类型为list时, 配置list中各项的最小数量 */
   minLength?: T extends 'list' ? number : never;
+  /** 类型为list时, 配置添加按钮的文本
+   * @default '添加项目'
+   */
   addText?: T extends 'list' ? string : never;
+  /** 类型为list时, 配置添加按钮的props */
   addProps?: T extends 'list' ? Omit<ButtonProps, 'onClick' | 'children'> : never;
+  /** 类型为list时, 配置添加按钮的回调 */
   onAdd?: T extends 'list'
     ? (fields: FormListFieldData[], add: FormListOperation['add']) => void
     : never;
+  /** 类型为list时, 配置删除按钮的props */
   removeProps?: T extends 'list' ? Omit<ButtonProps, 'onClick' | 'children'> : never;
+  /** 类型为list时, 配置删除按钮的文本 */
   removeText?: T extends 'list' ? string : never;
+  /** 类型为list时, 配置删除按钮的回调 */
   onRemove?: T extends 'list'
     ? (field: FormListFieldData, remove: FormListOperation['remove']) => void
     : never;
 }
+
+/** 表单配置 */
 interface CustomFormConfig {
   [field: string]: CustomFormFieldConfig<CustomFormFieldType, Record<string, unknown>>;
 }
-interface Submitter extends FormItemProps {
+
+/** 表单提交按钮配置 */
+interface Submitter extends HtmlHTMLAttributes<HTMLDivElement> {
+  /** 提交按钮的文本 */
   submitText?: React.ReactNode;
+  /** 重置按钮的文本 */
   resetText?: React.ReactNode;
+  /** 重置按钮的props */
   resetProps?: Omit<ButtonProps, 'children'>;
+  /** 提交按钮的props */
   submitProps?: Omit<ButtonProps, 'children'>;
+  /** 自定义提交按钮 */
   render?: (doms: React.ReactNode[]) => React.ReactNode;
 }
-export interface CustomFormProps extends FormProps {
-  config: CustomFormConfig;
-  form?: FormInstance;
-  loading?: boolean;
-  disabled?: boolean;
-  submitter?: false | Submitter;
+
+/**
+ * 不同类型字段对应的props
+ * @ignore optional
+ */
+interface FieldPropsMap<C extends Record<string, unknown>> {
+  /** 密码输入框 */
+  password: PasswordProps;
+  /** 邮箱输入框 */
+  email: EmailProps;
+  /** 选择框 */
+  select: SelectProps;
+  /** 数字输入框 */
+  number: InputNumberProps;
+  /** 开关 */
+  boolean: SwitchProps;
+  /** 单选框 */
+  radio: RadioProps;
+  /** 多选框 */
+  checkbox: CheckboxProps;
+  /** 日期选择器 */
+  date: DatePickerProps;
+  /** 时间选择器 */
+  time: TimePickerProps;
+  /** 周选择器 */
+  week: WeekPickerProps;
+  /** 月选择器 */
+  month: MonthPickerProps;
+  /** 年选择器 */
+  year: MonthPickerProps;
+  /** 季度选择器 */
+  quarter: MonthPickerProps;
+  /** 范围选择器 */
+  range: RangePickerProps;
+  /** 颜色选择器 */
+  color: ColorPickerProps;
+  /** 文本域 */
+  textarea: TextAreaProps;
+  /** 上传组件 */
+  upload: UploadProps;
+  /** 滑块 */
+  slider: SliderSingleProps;
+  /** 分段器 */
+  segmented: SegmentedProps;
+  /** 搜索框 */
+  search: SearchProps;
+  /** 自动完成 */
+  autoComplete: AutoCompleteProps;
+  /** 级联选择器 */
+  cascader: CascaderProps;
+  /** 自定义组件 */
+  custom: C;
+  /** 字符串输入框 */
+  string: InputProps;
+  /** 列表 */
+  list: FormListProps;
 }
 
+type FieldProps<
+  T extends CustomFormFieldType,
+  C extends Record<string, unknown>,
+> = FieldPropsMap<C>[T];
+
+/**
+ * 不同类型字段对应的组件
+ */
 const fieldComponents: Record<
   Exclude<CustomFormFieldType, 'custom' | 'list'>,
   React.ComponentType
@@ -257,7 +310,7 @@ const CustomForm = (
     layout = 'horizontal',
     loading = false,
     disabled = false,
-    submitter = {},
+    submitter = {} as Submitter,
     ...formProps
   }: CustomFormProps,
   ref: React.Ref<FormInstance>,
@@ -288,14 +341,13 @@ const CustomForm = (
     const name = conf.name || field;
     const fieldProps = props as InputProps;
 
-    if (['checkbox', 'boolean'].includes(type)) {
+    if (['checkbox', 'boolean', 'radio'].includes(type)) {
       rest.valuePropName = 'checked';
-    }
-    if (type !== 'radio' && type !== 'checkbox' && type !== 'boolean') {
-      if (fieldProps.allowClear === void 0) {
+    } else if (type !== 'list') {
+      if (!['segmented', 'number'].includes(type) && fieldProps.allowClear === void 0) {
         fieldProps.allowClear = true;
       }
-      if (!fieldProps.placeholder) {
+      if (fieldProps.placeholder === void 0) {
         switch (type) {
           case 'email':
           case 'string':
@@ -354,13 +406,15 @@ const CustomForm = (
 
                   return (
                     <div key={field.name + i} className="custom-form-list-item">
-                      <Row gutter={24} className="custom-form-list-item-content">
-                        {fieldIsString
-                          ? renderField(field.name, listConfig)
-                          : Object.entries(listConfig).map(([key, c]) =>
-                              renderField([field.name, key], c),
-                            )}
-                      </Row>
+                      {fieldIsString ? (
+                        <div style={{ flex: 1 }}>{renderField(field.name, listConfig)}</div>
+                      ) : (
+                        <div style={{ flex: 1, display: 'flex', flexWrap: 'wrap' }}>
+                          {Object.entries(listConfig).map(([key, c]) =>
+                            renderField([field.name, key], c),
+                          )}
+                        </div>
+                      )}
                       <Remove />
                     </div>
                   );
@@ -404,6 +458,7 @@ const CustomForm = (
         resetText = '重置',
         resetProps,
         submitProps,
+        className,
         render,
         ...rest
       } = submitter;
@@ -427,7 +482,11 @@ const CustomForm = (
         ),
       ];
 
-      return <Form.Item {...rest}>{render ? render(doms) : doms}</Form.Item>;
+      return (
+        <div className={['custom-form-submitter', className].filter(Boolean).join(' ')} {...rest}>
+          {render ? render(doms) : doms}
+        </div>
+      );
     },
     [loading, disabled],
   );

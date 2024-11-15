@@ -3,7 +3,7 @@ import { jsx } from 'react/jsx-runtime';
 import { createRoot } from 'react-dom/client';
 import { type ExampleModule } from '@app/example';
 import * as Pkgs from '@pkg/index';
-import CodeLive, { type CodeLiveElement } from 'n-code-live';
+import type { CodeLiveElement } from 'n-code-live';
 import type { BaseOption, CodeElement, SegmentedElement } from 'neko-ui';
 
 import './sandbox.css';
@@ -19,7 +19,6 @@ interface SandboxProps extends Omit<ExampleModule, 'title'> {
 
 const scope = {
   React,
-  CodeLive,
   jsx,
   ...React,
   ...Pkgs,

@@ -1,4 +1,4 @@
-import React, { FC, lazy, Suspense, useMemo } from 'react';
+import React, { type FC, lazy, Suspense, useMemo } from 'react';
 import examples from '@app/example';
 import Fallback from '@app/fallback';
 import { isFunction } from '@moneko/common';

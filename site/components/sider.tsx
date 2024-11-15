@@ -70,9 +70,9 @@ function Sider({ scheme }: { scheme?: keyof typeof ColorScheme }) {
   };
   const themes = useMemo<MenuOption[]>(
     () => [
-      { label: '暗黑', value: 'dark', icon: <i>{icons.dark}</i> },
-      { label: '明亮', value: 'light', icon: <i>{icons.light}</i> },
-      { label: '跟随系统', value: 'auto', icon: <i>{icons.auto}</i> },
+      { label: '暗黑', value: 'dark', icon: icons.dark },
+      { label: '明亮', value: 'light', icon: icons.light },
+      { label: '跟随系统', value: 'auto', icon: icons.auto },
     ],
     [icons.auto, icons.dark, icons.light],
   );

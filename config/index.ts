@@ -12,7 +12,7 @@ const conf: Partial<ConfigType> = {
     tags: [
       {
         tag: 'script',
-        src: 'https://cdn.statically.io/gh/monako97/cdn/main/npm/%40webcomponents/webcomponentsjs/2.8.0/webcomponents-loader.js',
+        src: 'https://cdn.statically.io/gh/monako97/cdn/main/npm/n-code-live/1.3.1/umd/index.js',
       },
     ],
   },

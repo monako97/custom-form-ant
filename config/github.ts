@@ -1,8 +1,7 @@
 import { type ConfigType, isDev, PACKAGENAME } from '@moneko/core';
 
 const conf: Partial<ConfigType> = {
-  devtool: isDev ? 'eval-cheap-module-source-map' : false,
-  bar: false,
+  devtool: false,
   seo: {
     domain: 'monako97.github.io',
     jekyll: false,
@@ -10,11 +9,31 @@ const conf: Partial<ConfigType> = {
   basename: `/${PACKAGENAME}`,
   sourceMap: false,
   publicPath: `https://monako97.github.io/${PACKAGENAME}/`,
-  bundleAnalyzer: false,
   fixBrowserRouter: {
     pathSegmentsToKeep: 1,
     path: '404.html',
   },
+  moduleFederation: [
+    {
+      name: 'demo_micro_app_react',
+      // 接入 moduleFederation
+      remotes: [
+        {
+          name: 'demo_module_federation',
+          host: 'https://monako97.github.io/demo-module-federation',
+          library: [
+            'react',
+            'react/jsx-runtime',
+            'react-dom',
+            'react-dom/client',
+            'react-router',
+            'react-router-dom',
+            'dayjs',
+          ],
+        },
+      ],
+    },
+  ],
 };
 
 export default conf;
