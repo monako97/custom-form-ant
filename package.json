@@ -6,9 +6,9 @@
     "scripts": {
         "start": "mo start library react",
         "build": "mo build library react",
-        "lint": "echo 0",
+        "lint": "npm run stylelint && npm run eslint",
         "stylelint": "mo stylelint components && mo stylelint site",
-        "eslint": "mo eslint {components,site}",
+        "eslint": "mo eslint components && mo eslint site",
         "changelog": "mo changelog CHANGELOG.md && git add CHANGELOG.md",
         "prepare": "mo githooks pre-commit=\"yarn precommit\" commit-msg=\"npx --no -- commitlint --edit ${1}\"",
         "precommit": "npm run stylelint && npm run eslint && npm run changelog"
@@ -18,8 +18,8 @@
     "devDependencies": {
         "@commitlint/cli": "19.5.0",
         "@commitlint/config-conventional": "19.5.0",
-        "@moneko/cli": "2.16.0",
-        "@moneko/core": "3.24.5",
+        "@moneko/cli": "2.17.0",
+        "@moneko/core": "3.24.6",
         "@moneko/react": "1.6.12",
         "@moneko/request": "1.0.5",
         "@types/react": "18.3.12",
@@ -34,6 +34,7 @@
         "stylelint-config-moneko": "2.4.2"
     },
     "dependencies": {
+        "@ant-design/icons": "^5.5.1",
         "antd": "^5.22.1"
     },
     "files": [

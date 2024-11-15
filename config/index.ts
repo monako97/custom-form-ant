@@ -21,6 +21,9 @@ const conf: Partial<ConfigType> = {
     lodash: {
       transform: '${member}',
     },
+    '@ant-design/icons': {
+      transform: 'es/icons/${member}',
+    },
     antd: {
       transform: 'es/${member}',
       memberTransformers: ['dashed_case'],

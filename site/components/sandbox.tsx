@@ -8,7 +8,7 @@ import type { BaseOption, CodeElement, SegmentedElement } from 'neko-ui';
 
 import './sandbox.css';
 
-const { useEffect, useMemo, useState, useRef } = React;
+const { useEffect, useMemo, useRef, useState } = React;
 
 interface SandboxProps extends Omit<ExampleModule, 'title'> {
   legend: string;
@@ -76,12 +76,14 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
         jsxImportSource: 'react',
         jsxPragma: 'React.createElement',
         jsxFragmentPragma: 'React.Fragment',
+        enableLegacyBabel5ModuleInterop: true,
+        enableLegacyTypeScriptModuleInterop: true,
       };
       live.current.renderJsx = (dom, el) => {
         const Dom = dom as unknown as React.FC;
         const root = createRoot(el);
 
-        root.render(typeof Dom === 'function' ? <Dom /> : Dom);
+        root.render(React.isValidElement(Dom) ? Dom : <Dom />);
         return () => {
           try {
             root.unmount();
