@@ -6,6 +6,9 @@ import { type ColorScheme, type DropdownElement, type MenuOption, theme } from '
 
 import './sider.global.less';
 
+import 'neko-ui/es/avatar';
+import 'neko-ui/es/dropdown';
+
 export type MyPkg = Partial<RouteConfig> & {
   type?: string;
   title?: string;

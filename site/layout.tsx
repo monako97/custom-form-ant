@@ -13,6 +13,10 @@ import Sider from './components/sider';
 
 import './global.css';
 
+import 'neko-ui/es/provider';
+import 'neko-ui/es/md';
+import 'neko-ui/es/back-top';
+
 function App() {
   const provider = useRef<ProviderElement>(null);
   const box = useRef<HTMLDivElement>(null);

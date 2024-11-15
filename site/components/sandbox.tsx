@@ -8,6 +8,10 @@ import type { BaseOption, CodeElement, SegmentedElement } from 'neko-ui';
 
 import './sandbox.css';
 
+import 'neko-ui/es/code';
+import 'neko-ui/es/md';
+import 'neko-ui/es/segmented';
+
 const { useEffect, useMemo, useRef, useState } = React;
 
 interface SandboxProps extends Omit<ExampleModule, 'title'> {
