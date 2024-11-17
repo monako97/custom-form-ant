@@ -1,4 +1,4 @@
-import React, { forwardRef, type HtmlHTMLAttributes, useCallback } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   AutoComplete,
@@ -47,8 +47,6 @@ import type { PasswordProps, SearchProps, TextAreaProps } from 'antd/es/input';
 import type { ValidatorRule } from 'rc-field-form/lib/interface';
 
 import Email, { type EmailProps } from '../email';
-
-import './index.global.less';
 
 /** Api */
 export interface CustomFormProps extends FormProps {
@@ -142,7 +140,7 @@ interface CustomFormConfig {
 }
 
 /** 表单提交按钮配置 */
-interface Submitter extends HtmlHTMLAttributes<HTMLDivElement> {
+interface Submitter extends FormItemProps {
   /** 提交按钮的文本 */
   submitText?: React.ReactNode;
   /** 重置按钮的文本 */
@@ -405,7 +403,16 @@ const CustomForm = (
                   );
 
                   return (
-                    <div key={field.name + i} className="custom-form-list-item">
+                    <div
+                      key={field.name + i}
+                      style={{
+                        display: 'flex',
+                        flex: 1,
+                        alignItems: 'baseline',
+                        flexWrap: 'wrap',
+                      }}
+                      className="custom-form-list-item"
+                    >
                       {fieldIsString ? (
                         <div style={{ flex: 1 }}>{renderField(field.name, listConfig)}</div>
                       ) : (
@@ -483,9 +490,22 @@ const CustomForm = (
       ];
 
       return (
-        <div className={['custom-form-submitter', className].filter(Boolean).join(' ')} {...rest}>
-          {render ? render(doms) : doms}
-        </div>
+        <Form.Item
+          className={['custom-form-submitter', className].filter(Boolean).join(' ')}
+          labelCol={{}}
+          wrapperCol={{}}
+          {...rest}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: 10,
+            }}
+          >
+            {render ? render(doms) : doms}
+          </div>
+        </Form.Item>
       );
     },
     [loading, disabled],

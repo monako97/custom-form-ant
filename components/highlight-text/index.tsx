@@ -1,8 +1,6 @@
 import React, { type ReactNode, useDeferredValue, useMemo, useState } from 'react';
 import { Typography } from 'antd';
 
-import * as styles from './index.less';
-
 export type HighlightTextJsonType =
   | {
       highlight?: boolean;
@@ -79,7 +77,13 @@ const HighlightText: React.FC<HighlightTextProps> = ({ text, highlight }: Highli
     }
   }, [text]);
   return (
-    <div className={styles.highlightText}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+      }}
+    >
       {texts?.map((item, i) => {
         return React.createElement(
           item.highlight ? Typography.Link : (Typography.Text as React.FC),
