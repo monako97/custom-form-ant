@@ -2,6 +2,11 @@
 
 ## Last
 
+### 🐛 Bug Fixes
+
+- submitter ([ff572ed](/commit/ff572ede17d9d5f898eb773b06166322d5f8a68a))
+- preview ([787c70d](/commit/787c70d14b77c5eff4fa95917e97820639dd1eae))
+
 ### ✨ Features
 
 - init ([ea00f93](/commit/ea00f939154994a2c4dc06b557b453a5e3a87b83))
@@ -17,9 +22,5 @@
 - 构建工具更新 ([cd0161c](/commit/cd0161ce24458d971fac97327f17c202637e04b9))
 - 构建工具更新 ([244a9f7](/commit/244a9f73b971ddb390073ef7a4acef202e4cd6ab))
 - 构建工具更新 ([0de9ed0](/commit/0de9ed06153b033c767d3e738f29df6f6893b8e7))
-
-### 🐛 Bug Fixes
-
-- preview ([787c70d](/commit/787c70d14b77c5eff4fa95917e97820639dd1eae))
 
 ## undefined
