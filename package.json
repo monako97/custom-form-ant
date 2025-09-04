@@ -1,6 +1,6 @@
 {
     "name": "custom-form-ant",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "自定义组件",
     "main": "es/index.js",
     "scripts": {
@@ -17,7 +17,7 @@
     "author": "moneko",
     "license": "MIT",
     "devDependencies": {
-        "@moneko/core": "3.52.2",
+        "@moneko/core": "3.52.3",
         "@moneko/react": "2.0.14",
         "@types/react": "18.3.12",
         "n-code-live": "2.1.1",
