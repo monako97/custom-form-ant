@@ -61,7 +61,10 @@ export function stringToHighlightJson(text: string): HighlightTextJsonType {
   return null;
 }
 
-const HighlightText: React.FC<HighlightTextProps> = ({ text, highlight }: HighlightTextProps) => {
+export const HighlightText: React.FC<HighlightTextProps> = ({
+  text,
+  highlight,
+}: HighlightTextProps) => {
   const [_texts, setTexts] = useState<HighlightTextJsonType>();
   const texts = useDeferredValue(_texts);
 
@@ -95,5 +98,3 @@ const HighlightText: React.FC<HighlightTextProps> = ({ text, highlight }: Highli
     </div>
   );
 };
-
-export default HighlightText;

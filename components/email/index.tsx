@@ -1,7 +1,7 @@
 import React, { type FC, useCallback, useDeferredValue, useState } from 'react';
 import { AutoComplete, type AutoCompleteProps } from 'antd';
 
-import HighlightText from '../highlight-text';
+import { HighlightText } from '../highlight-text';
 
 export interface EmailProps extends AutoCompleteProps {
   emailList?: string[];
@@ -24,7 +24,7 @@ const emailWhitelist = [
   '@42du.cn',
 ];
 
-const Email: FC<EmailProps> = ({ emailList = emailWhitelist, ...props }) => {
+export const Email: FC<EmailProps> = ({ emailList = emailWhitelist, ...props }) => {
   const [result, setResult] = useState<AutoCompleteProps['options']>([]);
   const options = useDeferredValue(result);
   const handleSearch = useCallback(
@@ -54,5 +54,3 @@ const Email: FC<EmailProps> = ({ emailList = emailWhitelist, ...props }) => {
 
   return <AutoComplete {...props} options={options} onSearch={handleSearch} />;
 };
-
-export default Email;

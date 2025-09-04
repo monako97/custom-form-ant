@@ -1,4 +1,4 @@
-import CustomForm from './custom-form';
+import { CustomForm } from './custom-form';
 
 export * from './custom-form';
 export * from './highlight-text';

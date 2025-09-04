@@ -46,7 +46,7 @@ import type { FormListProps } from 'antd/es/form';
 import type { PasswordProps, SearchProps, TextAreaProps } from 'antd/es/input';
 import type { ValidatorRule } from 'rc-field-form/lib/interface';
 
-import Email, { type EmailProps } from '../email';
+import { Email, type EmailProps } from '../email';
 
 /** Api */
 export interface CustomFormProps extends FormProps {
@@ -302,7 +302,7 @@ const RemoveButton: React.FC<RemoveButtonProps> = ({
     </Button>
   );
 };
-const CustomForm = (
+const CustomFormComponent = (
   {
     config,
     layout = 'horizontal',
@@ -532,6 +532,4 @@ const CustomForm = (
   );
 };
 
-const _CustomForm = forwardRef(CustomForm);
-
-export default _CustomForm;
+export const CustomForm = forwardRef(CustomFormComponent);
