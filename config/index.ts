@@ -1,6 +1,9 @@
-import type { ConfigType } from '@moneko/core';
+import { type ConfigType } from '@moneko/core';
 
 const conf: Partial<ConfigType> = {
+  output: {
+    crossOriginLoading: false,
+  },
   htmlPluginOption: {
     favicon: './site/assets/images/favicon.ico',
     tags: [
@@ -11,22 +14,28 @@ const conf: Partial<ConfigType> = {
     ],
   },
   fallbackCompPath: '@/components/fallback',
-  importOnDemand: {
-    lodash: {
-      transform: '${member}',
-    },
-    '@ant-design/icons': {
-      transform: 'es/icons/${member}',
-    },
-    'neko-ui': {
-      transform: 'es/${member}',
-      memberTransformers: ['dashed_case'],
-    },
-    antd: {
-      transform: 'es/${member}',
-      memberTransformers: ['dashed_case'],
-    },
-  },
+  // reactJsxRuntime: isDev ? 'classic' : 'automatic',
+  // moduleFederation: [
+  //   {
+  //     name: 'custom_form_ant',
+  //     // 接入 moduleFederation
+  //     remotes: [
+  //       {
+  //         name: 'demo_module_federation',
+  //         host: 'https://monako97.github.io/demo-module-federation',
+  //         library: [
+  //           'react',
+  //           'react/jsx-runtime',
+  //           'react-dom',
+  //           'react-dom/client',
+  //           'react-router',
+  //           'react-router-dom',
+  //           'dayjs',
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ],
 };
 
 export default conf;

@@ -1,13 +1,10 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import app from '@app/info';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
+import { description, projectName } from '@app/info';
 import routes, { type RouteConfig } from '@app/routes';
 import { Link, useLocation } from '@moneko/react';
 import { type ColorScheme, type DropdownElement, type MenuOption, theme } from 'neko-ui';
 
 import './sider.global.less';
-
-import 'neko-ui/es/avatar';
-import 'neko-ui/es/dropdown';
 
 export type MyPkg = Partial<RouteConfig> & {
   type?: string;
@@ -63,6 +60,7 @@ for (const key in obj) {
 
 export { all, kv };
 function Sider({ scheme }: { scheme?: keyof typeof ColorScheme }) {
+  'use memo';
   const sider = useRef<HTMLDivElement>(null);
   const themeSwitch = useRef<DropdownElement>(null);
   const location = useLocation();
@@ -113,8 +111,8 @@ function Sider({ scheme }: { scheme?: keyof typeof ColorScheme }) {
           />
         </Link>
         <hgroup className="site-title">
-          <h1 data-truncated>REMOTE LIB</h1>
-          <i>{kv[active]?.subtitle || app.description}</i>
+          <n-typography truncated>{projectName}</n-typography>
+          <i>{description}</i>
         </hgroup>
         <n-dropdown
           ref={themeSwitch}
@@ -174,4 +172,4 @@ function Sider({ scheme }: { scheme?: keyof typeof ColorScheme }) {
     </section>
   );
 }
-export default Sider;
+export default memo(Sider);

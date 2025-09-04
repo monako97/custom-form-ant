@@ -13,8 +13,5 @@
                 "components/*"
             ]
         }
-    },
-    "exclude": [
-        "types/*"
-    ]
+    }
 }

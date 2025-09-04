@@ -1,4 +1,4 @@
-import React, { type ReactNode, useDeferredValue, useMemo, useState } from 'react';
+import React, { type ReactNode, useDeferredValue, useEffect, useState } from 'react';
 import { Typography } from 'antd';
 
 export type HighlightTextJsonType =
@@ -65,7 +65,7 @@ const HighlightText: React.FC<HighlightTextProps> = ({ text, highlight }: Highli
   const [_texts, setTexts] = useState<HighlightTextJsonType>();
   const texts = useDeferredValue(_texts);
 
-  useMemo(() => {
+  useEffect(() => {
     if (typeof text === 'string') {
       const textArr = stringToHighlightJson(text);
 

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 // @ts-expect-error
 import { css } from '@moneko/css';
 import type { MDXComponents } from '@moneko/react/mdx';
-import { type TabOption, theme } from 'neko-ui';
+import { type Language, type TabOption, theme } from 'neko-ui';
 
 type Props = {
   children: React.ReactElement;
@@ -150,9 +150,11 @@ const mdxScope: MDXComponents = {
       <n-code
         toolbar={true}
         line-number={false}
-        language={(p.children as React.ReactElement & { className?: string })?.className
-          ?.replace('language-', '')
-          .replace(/ .*$/, '')}
+        language={
+          (p.children as React.ReactElement & { className?: string })?.className
+            ?.replace('language-', '')
+            .replace(/ .*$/, '') as Language
+        }
         {...p}
       />
     );

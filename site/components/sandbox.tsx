@@ -1,19 +1,22 @@
-import * as React from 'react';
+import React, { memo } from 'react';
 import { jsx } from 'react/jsx-runtime';
 import { createRoot } from 'react-dom/client';
 import { type ExampleModule } from '@app/example';
 import * as Pkgs from '@pkg/index';
-import type { CodeLiveElement } from 'n-code-live';
-import type { BaseOption, CodeElement, SegmentedElement } from 'neko-ui';
+import CodeLive, { type CodeLiveElement } from 'n-code-live';
+import {
+  type BaseOption,
+  Button,
+  type CodeElement,
+  type Language,
+  Modal,
+  registry,
+  type SegmentedElement,
+} from 'neko-ui';
 
 import './sandbox.css';
 
-import 'neko-ui/es/code';
-import 'neko-ui/es/md';
-import 'neko-ui/es/segmented';
-
-const { useEffect, useMemo, useRef, useState } = React;
-
+CodeLive.registry();
 interface SandboxProps extends Omit<ExampleModule, 'title'> {
   legend: string;
   codes: Record<string, string>;
@@ -23,29 +26,40 @@ interface SandboxProps extends Omit<ExampleModule, 'title'> {
 
 const scope = {
   React,
+  CodeLive,
+  Button,
   jsx,
+  Modal,
+  registry,
   ...React,
   ...Pkgs,
 };
-const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, style }) => {
-  const langsRef = useRef<SegmentedElement>(null);
-  const live = useRef<CodeLiveElement>(null);
-  const codeRef = useRef<CodeElement>(null);
-  const [sources, setSources] = useState<Record<string, string>>({});
-  const [current, setCurrent] = useState({
+
+const Sandbox: React.FC<SandboxProps> = ({
+  codes = {},
+  description,
+  legend,
+  style,
+}: SandboxProps) => {
+  'use memo';
+  const langsRef = React.useRef<SegmentedElement>(null);
+  const live = React.useRef<CodeLiveElement>(null);
+  const codeRef = React.useRef<CodeElement>(null);
+  const [sources, setSources] = React.useState<Record<string, string>>({});
+  const [current, setCurrent] = React.useState({
     code: '',
     jsx: false,
     lang: '',
   });
-  const [open, setOpen] = useState(false);
-  const hasDesc = useMemo(() => {
+  const [open, setOpen] = React.useState(false);
+  const hasDesc = React.useMemo(() => {
     if (typeof description === 'string') {
       return !!description?.trim().length;
     }
     return false;
   }, [description]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setSources({ ...codes });
   }, [codes]);
   const langChange = React.useCallback(
@@ -65,40 +79,46 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
     },
     [codes, current],
   );
-  const langs = useMemo<BaseOption[]>(() => {
+  const langs = React.useMemo<BaseOption[]>(() => {
     return Object.keys(codes).map<BaseOption>((k) => ({
       value: k,
-      label: k.toLocaleUpperCase() as unknown as JSX.Element,
+      label: k.toLocaleUpperCase(),
     }));
   }, [codes]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (live.current) {
-      live.current.components = scope;
-      live.current.transform = {
-        jsxImportSource: 'react',
-        jsxPragma: 'React.createElement',
-        jsxFragmentPragma: 'React.Fragment',
-        enableLegacyBabel5ModuleInterop: true,
-        enableLegacyTypeScriptModuleInterop: true,
-      };
-      live.current.renderJsx = (dom, el) => {
-        const Dom = dom as unknown as React.FC;
-        const root = createRoot(el);
+      Object.assign(live.current, {
+        components: scope,
+        transform: {
+          jsxImportSource: 'react',
+          jsxPragma: 'React.createElement',
+          jsxFragmentPragma: 'React.Fragment',
+        },
+        renderJsx: (dom: VoidFunction, el: HTMLElement) => {
+          const Dom = dom as unknown as React.FC;
+          const ele = document.createElement('div');
 
-        root.render(React.isValidElement(Dom) ? Dom : <Dom />);
-        return () => {
-          try {
-            root.unmount();
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.log(error);
-          }
-        };
-      };
+          el.append(ele);
+          const root = createRoot(el);
+
+          root.render(
+            <React.StrictMode>{typeof Dom === 'function' ? <Dom /> : Dom}</React.StrictMode>,
+          );
+
+          return () => {
+            try {
+              root.unmount();
+            } catch (error) {
+              // eslint-disable-next-line no-console
+              console.log(error);
+            }
+          };
+        },
+      });
     }
   }, []);
-  useEffect(() => {
+  React.useEffect(() => {
     const l = langs[0].value;
 
     setCurrent({
@@ -107,22 +127,26 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
       lang: l as string,
     });
   }, [codes, langs]);
-  useEffect(() => {
+  React.useEffect(() => {
     if (live.current) {
-      live.current.source = sources[current.lang];
+      Object.assign(live.current, {
+        source: sources[current.lang],
+      });
     }
   }, [current, sources]);
-  useEffect(() => {
+  React.useEffect(() => {
     if (langsRef.current) {
-      langsRef.current.options = langs;
+      Object.assign(langsRef.current, {
+        options: langs,
+      });
     }
   }, [langs]);
-  useEffect(() => {
+  React.useEffect(() => {
     if (langsRef.current) {
-      langsRef.current?.addEventListener?.('change', langChange);
+      langsRef.current.addEventListener?.('change', langChange);
     }
   }, [langChange]);
-  useEffect(() => {
+  React.useEffect(() => {
     const code = codeRef.current;
 
     if (open && code) {
@@ -172,8 +196,8 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
             ref={codeRef}
             class={['sandbox-live-editor', !open && 'hide'].filter(Boolean).join(' ')}
             code={sources[current.lang]}
-            language={current.lang}
-            edit
+            language={current.lang as Language}
+            edit={true}
             css={`
               .n-editor,
               pre {
@@ -188,4 +212,4 @@ const Sandbox: React.FC<SandboxProps> = ({ codes = {}, description, legend, styl
   );
 };
 
-export default Sandbox;
+export default memo(Sandbox);

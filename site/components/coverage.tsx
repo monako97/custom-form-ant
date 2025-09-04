@@ -1,6 +1,6 @@
 import React, { type FC, memo, useMemo } from 'react';
 import coverage from '@app/coverage';
-import app from '@app/info';
+import { name } from '@app/info';
 import { useLocation } from '@moneko/react';
 
 import './coverage.css';
@@ -16,11 +16,12 @@ function getNum(num: number) {
   return typeof num === 'number' && !isNaN(num) ? num : '-';
 }
 const Coverage: FC = () => {
+  'use memo';
   const location = useLocation();
   const coverages = useMemo(() => {
-    const name = location.pathname.substring(1);
+    const component = location.pathname.substring(1);
 
-    return coverage[name ? `components.${name}` : app.name] || {};
+    return coverage[component ? `components.${component}` : name] || {};
   }, [location.pathname]);
 
   if (location.pathname === '/examples') return null;
