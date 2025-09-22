@@ -4,6 +4,7 @@
 
 ### ✨ Features
 
+- 更新组件和配置，修改版本号及依赖 ([1fa21c3](/commit/1fa21c381f3c9a22905d165c652fe9e11088c92f))
 - 文档更新 ([b0c0404](/commit/b0c04041a75104c1a8ee8e354b95f3f117d2b586))
 - 文档更新 ([74567cb](/commit/74567cb2b8707b0758511e40aa5cbf4d0835a662))
 - 文档更新 ([a7ad0e9](/commit/a7ad0e9bfa84dc83e12dfe302354fe6774a72a29))
