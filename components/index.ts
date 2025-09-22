@@ -1,6 +1,3 @@
-import { CustomForm } from './custom-form';
-
 export * from './custom-form';
+export * from './email';
 export * from './highlight-text';
-
-export default CustomForm;

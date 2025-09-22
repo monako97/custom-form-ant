@@ -4,6 +4,7 @@
 
 ### ✨ Features
 
+- 更新组件导出和配置，修改版本号 ([cbf3cf7](/commit/cbf3cf79b74a3deac0f79f61d2bb3191bc1fb5d8))
 - 移除输出配置中的跨源加载设置 ([1499866](/commit/14998661ccde9d16345ff13eae5cfac90a0ed190))
 - 更新组件和配置，修改版本号及依赖 ([1fa21c3](/commit/1fa21c381f3c9a22905d165c652fe9e11088c92f))
 - 文档更新 ([b0c0404](/commit/b0c04041a75104c1a8ee8e354b95f3f117d2b586))
