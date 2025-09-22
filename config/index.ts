@@ -14,6 +14,7 @@ const conf: Partial<ConfigType> = {
     ],
   },
   fallbackCompPath: '@/components/fallback',
+  reactCompiler: { compilationMode: 'annotation', target: '19' },
   // reactJsxRuntime: isDev ? 'classic' : 'automatic',
   // moduleFederation: [
   //   {
