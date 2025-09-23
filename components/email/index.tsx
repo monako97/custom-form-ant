@@ -14,14 +14,10 @@ const emailWhitelist = [
   '@163.com',
   '@vip.163.com',
   '@263.net',
-  '@yeah.net',
   '@sohu.com',
-  '@sina.cn',
   '@sina.com',
-  '@eyou.com',
   '@gmail.com',
   '@hotmail.com',
-  '@42du.cn',
 ];
 
 export const Email: FC<EmailProps> = ({ emailList = emailWhitelist, ...props }) => {
