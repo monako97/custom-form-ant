@@ -18,7 +18,7 @@
     "author": "moneko",
     "license": "MIT",
     "devDependencies": {
-        "@moneko/core": "3.55.8",
+        "@moneko/core": "3.55.14",
         "@moneko/react": "2.0.14",
         "@types/react": "19.1.13",
         "@types/react-dom": "19.1.9",
