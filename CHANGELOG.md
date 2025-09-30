@@ -4,6 +4,7 @@
 
 ### ✨ Features
 
+- 更新 @moneko/core 依赖版本至 3.55.14 ([6d8acfb](/commit/6d8acfb8cebfc2fadd1d91ff0333a9b9fa58ac54))
 - 更新 @moneko/core 依赖版本至 3.55.8 ([1d99367](/commit/1d99367e44c3e575be0020fa89f86424213f03ee))
 - 更新邮箱白名单，移除不必要的域名；更新依赖版本 ([a3b86da](/commit/a3b86da61eb039d16f6b4aacba9be748928f55ab))
 - 移除默认导出，简化组件导出结构 ([4bed463](/commit/4bed463dc0570bd381545e4fd75c19e1f00b5ab5))
