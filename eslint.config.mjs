@@ -1,6 +1,3 @@
-import recommended from '@moneko/core/eslint/react';
+import react from '@moneko/core/eslint/react-legacy';
 
-export default [
-  ...recommended,
-  { ignores: ['**/**/*.mdx?', 'lib', 'docs', 'coverage', 'prism.js'] },
-];
+export default [...react, { ignores: ['**/**/*.mdx?', 'lib', 'docs', 'coverage', 'prism.js'] }];

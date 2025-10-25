@@ -1,6 +1,6 @@
 {
     "name": "custom-form-ant",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "自定义组件",
     "main": "es/index.js",
     "scripts": {
@@ -18,18 +18,18 @@
     "author": "moneko",
     "license": "MIT",
     "devDependencies": {
-        "@moneko/core": "3.56.1",
-        "@moneko/react": "2.0.14",
-        "@types/react": "19.1.16",
-        "@types/react-dom": "19.1.9",
+        "@moneko/core": "3.56.19",
+        "@moneko/react": "2.1.5",
+        "@types/react": "19.2.2",
+        "@types/react-dom": "19.2.2",
         "n-code-live": "2.1.1",
-        "neko-ui": "2.14.1",
-        "react": "19.1.1",
-        "react-dom": "19.1.1"
+        "neko-ui": "2.14.2",
+        "react": "19.2.0",
+        "react-dom": "19.2.0"
     },
     "dependencies": {
         "@ant-design/icons": "5.6.1",
-        "antd": "5.27.4"
+        "antd": "5.27.6"
     },
     "repository": {
         "url": "https://github.com/monako97/custom-form-ant"
